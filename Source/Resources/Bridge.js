@@ -47,14 +47,24 @@ function removeClass(ele,cls) {
   }
 }
 
-// Font name class
+// Font name class /* MNM: Edited */
 function setFontName(cls) {
     var elm = document.documentElement;
-    removeClass(elm, "andada");
-    removeClass(elm, "lato");
-    removeClass(elm, "lora");
-    removeClass(elm, "raleway");
+    removeClass(elm, "fontOne");
+    removeClass(elm, "fontTwo");
+    removeClass(elm, "fontThree");
+    removeClass(elm, "fontFour");
     addClass(elm, cls);
+}
+
+// MNM: Toggle horizontal mode
+function horizontalMode(enable) {
+    var elm = document.documentElement;
+    if (enable) {
+        addClass(elm, "horizontalMode");
+    } else {
+        removeClass(elm, "horizontalMode");
+    }
 }
 
 // Toggle night mode

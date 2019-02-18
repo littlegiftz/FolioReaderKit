@@ -203,7 +203,7 @@ extension FolioReader {
             guard
                 let rawValue = self.defaults.value(forKey: kCurrentFontFamily) as? Int,
                 let font = FolioReaderFont(rawValue: rawValue) else {
-                    return .andada
+                    return .fontOne /* MNM: Edited */
             }
 
             return font
@@ -280,6 +280,9 @@ extension FolioReader {
 
             let direction = (FolioReaderScrollDirection(rawValue: currentScrollDirection) ?? .defaultVertical)
             self.readerCenter?.setScrollDirection(direction)
+
+            /* MNM */
+            self.readerCenter?.currentPage?.webView?.js("horizontalMode('\(direction == .horizontal)')")
         }
     }
 

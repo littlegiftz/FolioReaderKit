@@ -270,7 +270,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let menu = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action:#selector(closeReader(_:)))
         let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
 
-        navigationItem.leftBarButtonItems = [menu, toc]
+        // navigationItem.leftBarButtonItems = [menu, toc] /* MNM: Moved TOC icon */
+        navigationItem.leftBarButtonItems = [menu]
+        rightBarIcons.append(toc)
 
         var rightBarIcons = [UIBarButtonItem]()
 
@@ -484,6 +486,12 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         // Night mode
         if folioReader.nightMode {
             classes += " nightMode"
+        }
+
+        /* MNM: scrollDirection */
+        if readerConfig.scrollDirection == .horizontal {
+            print("center added horizontalMode")
+            classes += " horizontalMode"
         }
 
         // Font Size

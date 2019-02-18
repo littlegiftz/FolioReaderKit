@@ -51,8 +51,8 @@ class FolioReaderChapterList: UITableViewController {
         self.tableView.backgroundColor = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, self.readerConfig.menuBackgroundColor)
         self.tableView.separatorColor = self.folioReader.isNight(self.readerConfig.nightModeSeparatorColor, self.readerConfig.menuSeparatorColor)
 
-        self.tableView.rowHeight = UITableView.automaticDimension
-        self.tableView.estimatedRowHeight = 50
+        self.tableView.rowHeight = 45 /* MNM: UITableViewAutomaticDimension */
+        self.tableView.estimatedRowHeight = 45 /* MNM */
 
         // Create TOC list
         self.tocItems = self.book.flatTableOfContents

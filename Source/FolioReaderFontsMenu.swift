@@ -8,19 +8,21 @@
 
 import UIKit
 
+/* MNM: Edited font family */
+
 public enum FolioReaderFont: Int {
-    case andada = 0
-    case lato
-    case lora
-    case raleway
+    case fontOne = 0
+    case fontTwo
+    case fontThree
+    case fontFour
 
     public static func folioReaderFont(fontName: String) -> FolioReaderFont? {
         var font: FolioReaderFont?
         switch fontName {
-        case "andada": font = .andada
-        case "lato": font = .lato
-        case "lora": font = .lora
-        case "raleway": font = .raleway
+        case "fontOne": font = .fontOne
+        case "fontTwo": font = .fontTwo
+        case "fontThree": font = .fontThree
+        case "fontFour": font = .fontFour
         default: break
         }
         return font
@@ -28,10 +30,10 @@ public enum FolioReaderFont: Int {
 
     public var cssIdentifier: String {
         switch self {
-        case .andada: return "andada"
-        case .lato: return "lato"
-        case .lora: return "lora"
-        case .raleway: return "raleway"
+        case .fontOne: return "fontOne"
+        case .fontTwo: return "fontTwo"
+        case .fontThree: return "fontThree"
+        case .fontFour: return "fontFour"
         }
     }
 }
@@ -155,6 +157,7 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
                                      separatorColour: UIColor.clear,
                                      separatorWidth: 0,
                                      segmentProperties:  [
+                                        keySegmentTitleFont: UIFont(name: "Avenir-Light", size: 15)!, /* MNM */
                                         keySegmentOnSelectionColour: UIColor.clear,
                                         keySegmentOffSelectionColour: UIColor.clear,
                                         keySegmentOnSelectionTextColour: selectedColor,
@@ -164,10 +167,11 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         fontName.delegate = self
         fontName.tag = 2
 
-        fontName.addSegmentWithTitle("Andada", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Lato", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Lora", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Raleway", onSelectionImage: nil, offSelectionImage: nil)
+        /* MNM */
+        fontName.addSegmentWithTitle("Sarabun", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Noto", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Bai Jamjuree", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Mali", onSelectionImage: nil, offSelectionImage: nil)
 
 //        fontName.segments[0].titleFont = UIFont(name: "Andada-Regular", size: 18)!
 //        fontName.segments[1].titleFont = UIFont(name: "Lato-Regular", size: 18)!

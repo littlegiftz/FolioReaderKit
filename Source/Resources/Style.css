@@ -53,6 +53,10 @@ body {
     }
 }
 
+html.horizontalMode body{ /* MNM */
+    padding-top: 0px !important;
+}
+
 /* Table */
 table {
     border-collapse: collapse;
@@ -80,7 +84,7 @@ a { -webkit-touch-callout: none; } /* Disable link callback */
 * { -webkit-user-select: text; }
 img { -webkit-user-select: none; }
 p {
-    margin: 1.3em 0 1.5em 0;
+    margin: 0; /* MNM <- margin: 1.3em 0 1.5em 0; */
     line-height: 1.40em !important;
     text-indent: 1.25em;
 }
@@ -215,12 +219,12 @@ html.nightMode, html.nightMode body {
 }
 
 .nightMode p, .nightMode div, .nightMode span:not(.epub-media-overlay-playing) {
-    color: #767676 !important;
+    color: #EEEEEE !important; /* MNM #767676 */
     background-color: transparent !important;
 }
 
 .nightMode h1, .nightMode h2, .nightMode h3, .nightMode h4, .nightMode h5, .nightMode h6 {
-    color: #848484 !important;
+    color: #EEEEEE !important; /* MNM #848484 */
 }
 
 html.nightMode .highlight-yellow {background:rgba(255, 235, 107, 0.9)}
@@ -235,11 +239,17 @@ html.nightMode .highlight-underline {border-bottom: 2px solid rgba(240, 40, 20, 
  * Font classes
  *
  */
+/* MNM: Edited font family */
 
-.andada, .andada p, .andada span, .andada div { font-family: "Andada", sans-serif !important; }
+/*.andada, .andada p, .andada span, .andada div { font-family: "Andada", sans-serif !important; }
 .lato, .lato p, .lato span, .lato div { font-family: "Lato", serif !important; }
 .lora, .lora p, .lora span, .lora div { font-family: "Lora", serif !important; }
-.raleway, .raleway p, .raleway span, .raleway div { font-family: "Raleway", sans-serif !important; }
+.raleway, .raleway p, .raleway span, .raleway div { font-family: "Raleway", sans-serif !important; } */
+
+.fontOne, .fontOne p, .fontOne span, .fontOne div { font-family: "Sarabun", serif !important; }
+.fontTwo, .fontTwo p, .fontTwo span, .fontTwo div { font-family: "Noto Serif Thai", "Noto Serif", serif !important; }
+.fontThree, .fontThree p, .fontThree span, .fontThree div { font-family: "Bai Jamjuree", serif !important; }
+.fontFour, .fontFour p, .fontFour span, .fontFour div { font-family: "Mali", serif !important; }
 
 html.textSizeOne, .textSizeOne body { font-size: 13px !important; }
 html.textSizeTwo, .textSizeTwo body { font-size: 15px !important; }
