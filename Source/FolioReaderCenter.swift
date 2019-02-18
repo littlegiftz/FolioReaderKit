@@ -269,12 +269,12 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let menu = UIBarButtonItem(image: closeIcon, style: .plain, target: self, action:#selector(closeReader(_:)))
         let toc = UIBarButtonItem(image: tocIcon, style: .plain, target: self, action:#selector(presentChapterList(_:)))
+        
+        var rightBarIcons = [UIBarButtonItem]()
 
         // navigationItem.leftBarButtonItems = [menu, toc] /* MNM: Moved TOC icon */
         navigationItem.leftBarButtonItems = [menu]
         rightBarIcons.append(toc)
-
-        var rightBarIcons = [UIBarButtonItem]()
 
         if (self.readerConfig.allowSharing == true) {
             rightBarIcons.append(UIBarButtonItem(image: shareIcon, style: .plain, target: self, action:#selector(shareChapter(_:))))
