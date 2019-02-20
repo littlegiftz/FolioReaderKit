@@ -112,6 +112,9 @@ open class FolioReader: NSObject {
     open weak var readerCenter: FolioReaderCenter? {
         return self.readerContainer?.centerViewController
     }
+    
+    open var appBookID: Int?
+    open var appBookLevel: Int?
 
     /// Check if reader is open
     var isReaderOpen = false
@@ -175,6 +178,11 @@ extension FolioReader {
 
     public func register(defaults: [String: Any]) {
         self.defaults.register(defaults: defaults)
+    }
+    
+    public func setAppData(bookID: Int, bookLevel: Int) {
+        self.appBookID = bookID
+        self.appBookLevel = bookLevel
     }
 
     /// Check if current theme is Night mode

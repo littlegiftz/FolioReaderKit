@@ -8,6 +8,7 @@
 
 import UIKit
 import ZFDragableModalTransition
+import TTGSnackbar
 
 /// Protocol which is used from `FolioReaderCenter`s.
 @objc public protocol FolioReaderCenterDelegate: class {
@@ -70,6 +71,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     var currentPageNumber: Int = 0
     var pageWidth: CGFloat = 0.0
     var pageHeight: CGFloat = 0.0
+    
+    var snackbar: TTGSnackbar?
 
     fileprivate var screenBounds: CGRect!
     fileprivate var pointNow = CGPoint.zero
@@ -180,6 +183,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         automaticallyAdjustsScrollViewInsets = false
         extendedLayoutIncludesOpaqueBars = true
         configureNavBar()
+        configSnackbar()
 
         // Page indicator view
         if (self.readerConfig.hidePageIndicator == false) {
@@ -247,6 +251,29 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     fileprivate func frameForScrollScrubber() -> CGRect {
         let scrubberY: CGFloat = ((self.readerConfig.shouldHideNavigationOnTap == true || self.readerConfig.hideBars == true) ? 50 : 74)
         return CGRect(x: self.pageWidth + 10, y: scrubberY, width: 40, height: (self.pageHeight - 100))
+    }
+    
+    func configSnackbar(){
+        if(folioReader.appBookLevel == 0) {
+            snackbar = TTGSnackbar(
+                message: "Enjoy reading this book?",
+                duration: .forever,
+                actionText: "GET BOOK",
+                actionBlock: { (snackbar) in
+                    snackbar.dismiss()
+                    self.dismiss()
+                    self.folioReader.close()
+                    NotificationCenter.default.post(name: Notification.Name("didReceiveFolioData"), object: nil, userInfo: ["bookid" : self.folioReader.appBookID!])
+            })
+            snackbar?.backgroundColor = readerConfig.nightModeMenuBackground
+            snackbar?.alpha = 0.9
+            snackbar?.messageTextFont = UIFont.boldSystemFont(ofSize: 12)
+            snackbar?.actionTextFont = UIFont.boldSystemFont(ofSize: 12)
+            snackbar?.separateViewBackgroundColor = UIColor.clear
+            snackbar?.contentInset = UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
+            snackbar?.actionTextColor = readerConfig.tintColor
+            snackbar?.containerView = self.view
+        }
     }
 
     func configureNavBar() {
@@ -392,10 +419,12 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
             return
         }
 
+        self.snackbar?.dismiss()
         self.updateBarsStatus(true)
     }
 
     func showBars() {
+        self.snackbar?.show()
         self.configureNavBar()
         self.updateBarsStatus(false)
     }
@@ -407,7 +436,11 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let shouldHide = !self.navigationController!.isNavigationBarHidden
         if shouldHide == false {
+            self.snackbar?.show()
             self.configureNavBar()
+        }
+        else{
+            self.snackbar?.dismiss()
         }
 
         self.updateBarsStatus(shouldHide)
