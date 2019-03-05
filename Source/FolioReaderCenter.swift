@@ -193,12 +193,14 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 view.addSubview(pageIndicatorView)
             }
         }
+        
+        self.pageIndicatorView?.isHidden = true
 
         guard let readerContainer = readerContainer else { return }
         self.scrollScrubber = ScrollScrubber(frame: frameForScrollScrubber(), withReaderContainer: readerContainer)
         self.scrollScrubber?.delegate = self
         if let scrollScrubber = scrollScrubber {
-            view.addSubview(scrollScrubber.slider)
+            //view.addSubview(scrollScrubber.slider) MNM : No Scrollbar
         }
     }
 
@@ -265,13 +267,17 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                     self.folioReader.close()
                     NotificationCenter.default.post(name: Notification.Name("didReceiveFolioData"), object: nil, userInfo: ["bookid" : self.folioReader.appBookID!])
             })
-            snackbar?.backgroundColor = readerConfig.nightModeMenuBackground
-            snackbar?.alpha = 0.9
             snackbar?.messageTextFont = UIFont.boldSystemFont(ofSize: 12)
             snackbar?.actionTextFont = UIFont.boldSystemFont(ofSize: 12)
             snackbar?.separateViewBackgroundColor = UIColor.clear
             snackbar?.contentInset = UIEdgeInsets.init(top: 0, left: 8, bottom: 0, right: 8)
+            snackbar?.bottomMargin = self.pageIndicatorHeight
+            snackbar?.leftMargin = 0
+            snackbar?.rightMargin = 0
+            snackbar?.cornerRadius = 0
             snackbar?.actionTextColor = readerConfig.tintColor
+            snackbar?.animationType = .fadeInFadeOut
+            snackbar?.layer.shadowOpacity = 0
             snackbar?.containerView = self.view
         }
     }
@@ -282,6 +288,9 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let navText = folioReader.isNight(UIColor.white, UIColor.black)
         let font = UIFont(name: "Avenir-Light", size: 17)!
         setTranslucentNavigation(color: navBackground, tintColor: tintColor, titleColor: navText, andFont: font)
+        
+        snackbar?.backgroundColor = folioReader.isNight(self.readerConfig.nightModeMenuBackground.lighterColor(0.1), UIColor.white.darkerColor(0.02))
+        snackbar?.messageTextColor = folioReader.isNight(UIColor.white, UIColor.black)
     }
 
     func configureNavBarButtons() {
@@ -418,15 +427,17 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         guard self.readerConfig.shouldHideNavigationOnTap == true else {
             return
         }
-
-        self.snackbar?.dismiss()
+        
         self.updateBarsStatus(true)
+        self.snackbar?.dismiss()
+        self.pageIndicatorView?.isHidden = true
     }
 
     func showBars() {
-        self.snackbar?.show()
         self.configureNavBar()
         self.updateBarsStatus(false)
+        self.snackbar?.show()
+        self.pageIndicatorView?.isHidden = false
     }
 
     func toggleBars() {
@@ -436,11 +447,13 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         let shouldHide = !self.navigationController!.isNavigationBarHidden
         if shouldHide == false {
-            self.snackbar?.show()
             self.configureNavBar()
+            self.snackbar?.show()
+            self.pageIndicatorView?.isHidden = false
         }
         else{
             self.snackbar?.dismiss()
+            self.pageIndicatorView?.isHidden = true
         }
 
         self.updateBarsStatus(shouldHide)

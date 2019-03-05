@@ -26,13 +26,15 @@ class FolioReaderPageIndicator: UIView {
 
         super.init(frame: frame)
 
-        let color = self.folioReader.isNight(self.readerConfig.nightModeBackground, UIColor.white)
+        let color = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, UIColor.white)
         backgroundColor = color
-        layer.shadowColor = color.cgColor
+        /*layer.shadowColor = color.cgColor
         layer.shadowOffset = CGSize(width: 0, height: -6)
         layer.shadowOpacity = 1
-        layer.shadowRadius = 4
-        layer.shadowPath = UIBezierPath(rect: bounds).cgPath
+        layer.shadowRadius = 1
+        layer.shadowPath = UIBezierPath(rect: bounds).cgPath*/
+        let borderColor = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, UIColor(rgba: "#E8E8E8"))
+        layer.addBorder(edge: [.top], color: borderColor)
         layer.rasterizationScale = UIScreen.main.scale
         layer.shouldRasterize = true
 
@@ -57,8 +59,8 @@ class FolioReaderPageIndicator: UIView {
         pagesLabel.sizeToFit()
 
         let fullW = pagesLabel.frame.width + minutesLabel.frame.width
-        minutesLabel.frame.origin = CGPoint(x: frame.width/2-fullW/2, y: 2)
-        pagesLabel.frame.origin = CGPoint(x: minutesLabel.frame.origin.x+minutesLabel.frame.width, y: 2)
+        minutesLabel.frame.origin = CGPoint(x: frame.width/2-fullW/2, y: 8)
+        pagesLabel.frame.origin = CGPoint(x: minutesLabel.frame.origin.x+minutesLabel.frame.width, y: 8)
         
         if updateShadow {
             layer.shadowPath = UIBezierPath(rect: bounds).cgPath
@@ -67,8 +69,11 @@ class FolioReaderPageIndicator: UIView {
     }
 
     func reloadColors() {
-        let color = self.folioReader.isNight(self.readerConfig.nightModeBackground, UIColor.white)
+        let color = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, UIColor.white)
         backgroundColor = color
+        
+        let borderColor = self.folioReader.isNight(self.readerConfig.nightModeMenuBackground, UIColor(rgba: "#E8E8E8"))
+        layer.addBorder(edge: [.top], color: borderColor)
 
         // Animate the shadow color change
         let animation = CABasicAnimation(keyPath: "shadowColor")
@@ -95,14 +100,15 @@ class FolioReaderPageIndicator: UIView {
             pagesLabel.text = " \(pagesRemaining) " + self.readerConfig.localizedReaderManyPagesLeft
         }
 
-        let minutesRemaining = Int(ceil(CGFloat((pagesRemaining * totalMinutes)/totalPages)))
+        /*let minutesRemaining = Int(ceil(CGFloat((pagesRemaining * totalMinutes)/totalPages)))
         if minutesRemaining > 1 {
             minutesLabel.text = "\(minutesRemaining) " + self.readerConfig.localizedReaderManyMinutes+" ·"
         } else if minutesRemaining == 1 {
             minutesLabel.text = self.readerConfig.localizedReaderOneMinute+" ·"
         } else {
             minutesLabel.text = self.readerConfig.localizedReaderLessThanOneMinute+" ·"
-        }
+        }*/
+        minutesLabel.text = "Current chapter " 
         
         reloadView(updateShadow: false)
     }

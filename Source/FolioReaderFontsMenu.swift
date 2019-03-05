@@ -168,9 +168,9 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         fontName.tag = 2
 
         /* MNM */
-        fontName.addSegmentWithTitle("Sarabun", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Noto", onSelectionImage: nil, offSelectionImage: nil)
         fontName.addSegmentWithTitle("Bai Jamjuree", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Sarabun", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Noto Serif", onSelectionImage: nil, offSelectionImage: nil)
         fontName.addSegmentWithTitle("Mali", onSelectionImage: nil, offSelectionImage: nil)
 
 //        fontName.segments[0].titleFont = UIFont(name: "Andada-Regular", size: 18)!

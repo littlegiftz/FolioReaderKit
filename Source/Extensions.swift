@@ -460,7 +460,7 @@ internal extension UIViewController {
         let navBar = self.navigationController?.navigationBar
         navBar?.setBackgroundImage(UIImage.imageWithColor(color), for: UIBarMetrics.default)
         navBar?.isHidden = false
-        navBar?.isTranslucent = translucent
+        //navBar?.isTranslucent = translucent
         navBar?.tintColor = tintColor
         navBar?.titleTextAttributes = [NSAttributedString.Key.foregroundColor: titleColor, NSAttributedString.Key.font: font]
     }
@@ -525,4 +525,32 @@ extension Array {
     subscript(safe index: Int) -> Element? {
         return indices ~= index ? self[index] : nil
     }
+}
+
+extension CALayer {
+    
+    func addBorder(edge: UIRectEdge, color: UIColor) {
+        let thickness = 1 as CGFloat
+        let border = CALayer()
+        switch edge {
+        case .top:
+            border.frame = CGRect(x: 0, y: 0, width: frame.width, height: thickness)
+        case .bottom:
+            border.frame = CGRect(x: 0, y: frame.height - thickness, width: frame.width, height: thickness)
+        case .left:
+            border.frame = CGRect(x: 0, y: 0, width: thickness, height: frame.height)
+        case .right:
+            border.frame = CGRect(x: frame.width - thickness, y: 0, width: thickness, height: frame.height)
+        default:
+            break
+        }
+        border.backgroundColor = color.cgColor;
+        addSublayer(border)
+    }
+    
+    func addSimpleBorder(edge: UIRectEdge) {
+        let color = UIColor(rgba: "#E8E8E8")
+        addBorder(edge: edge, color: color)
+    }
+    
 }
