@@ -84,7 +84,7 @@ a { -webkit-touch-callout: none; } /* Disable link callback */
 * { -webkit-user-select: text; }
 img { -webkit-user-select: none; }
 
-b, strong, th {font-weight: bolder !important;}
+b, strong, th {font-weight: bold !important;}
 
 /* Forced font overrides */
 code, kbd, pre, samp, tt {
@@ -240,9 +240,10 @@ html.nightMode .highlight-underline {border-bottom: 2px solid rgba(240, 40, 20, 
 .lora, .lora p, .lora span, .lora div { font-family: "Lora", serif !important; }
 .raleway, .raleway p, .raleway span, .raleway div { font-family: "Raleway", sans-serif !important; } */
 
-.fontOne, .fontOne p, .fontOne span, .fontOne div { font-family: "Bai Jamjuree", serif !important;}
-.fontTwo, .fontTwo p, .fontTwo span, .fontTwo div { font-family: "Sarabun", serif !important; }
-.fontThree, .fontThree p, .fontThree span, .fontThree div { font-family: "Noto Serif Thai", "Noto Serif", serif !important; }
+.fontOne, .fontOne p, .fontOne span, .fontOne div { font-family: "Thonburi", serif !important; }
+.fontTwo, .fontTwo p, .fontTwo span, .fontTwo div { font-family: "Bai Jamjuree", serif !important; }
+.fontThree, .fontThree p, .fontThree span, .fontThree div { font-family: "Sarabun", serif !important; }
+/*.fontThree, .fontThree p, .fontThree span, .fontThree div { font-family: "Noto Serif Thai", "Noto Serif", serif !important; }*/
 .fontFour, .fontFour p, .fontFour span, .fontFour div { font-family: "Mali", serif !important; }
 
 html.textSizeOne, .textSizeOne body { font-size: 13px !important; }

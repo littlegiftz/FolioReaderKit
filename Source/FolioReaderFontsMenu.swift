@@ -153,7 +153,7 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         menuView.addSubview(line)
 
         // Fonts adjust
-        let fontName = SMSegmentView(frame: CGRect(x: 15, y: line.frame.height+line.frame.origin.y, width: view.frame.width-30, height: 55),
+        let fontName = SMSegmentView(frame: CGRect(x: 10, y: line.frame.height+line.frame.origin.y, width: view.frame.width-10, height: 55),
                                      separatorColour: UIColor.clear,
                                      separatorWidth: 0,
                                      segmentProperties:  [
@@ -168,15 +168,10 @@ class FolioReaderFontsMenu: UIViewController, SMSegmentViewDelegate, UIGestureRe
         fontName.tag = 2
 
         /* MNM */
-        fontName.addSegmentWithTitle("Bai Jamjuree", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Thonburi", onSelectionImage: nil, offSelectionImage: nil)
         fontName.addSegmentWithTitle("Sarabun", onSelectionImage: nil, offSelectionImage: nil)
-        fontName.addSegmentWithTitle("Noto Serif", onSelectionImage: nil, offSelectionImage: nil)
+        fontName.addSegmentWithTitle("Bai Jamjuree", onSelectionImage: nil, offSelectionImage: nil)
         fontName.addSegmentWithTitle("Mali", onSelectionImage: nil, offSelectionImage: nil)
-
-//        fontName.segments[0].titleFont = UIFont(name: "Andada-Regular", size: 18)!
-//        fontName.segments[1].titleFont = UIFont(name: "Lato-Regular", size: 18)!
-//        fontName.segments[2].titleFont = UIFont(name: "Lora-Regular", size: 18)!
-//        fontName.segments[3].titleFont = UIFont(name: "Raleway-Regular", size: 18)!
 
         fontName.selectSegmentAtIndex(self.folioReader.currentFont.rawValue)
         menuView.addSubview(fontName)

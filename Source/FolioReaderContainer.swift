@@ -77,6 +77,7 @@ open class FolioReaderContainer: UIViewController {
     /// Common Initialization
     fileprivate func initialization() {
         // Register custom fonts
+        FontBlaster.debugEnabled = true
         FontBlaster.blast(bundle: Bundle.frameworkBundle())
 
         // Register initial defaults
