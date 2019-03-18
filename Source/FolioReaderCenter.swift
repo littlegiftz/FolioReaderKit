@@ -73,7 +73,8 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
     var pageHeight: CGFloat = 0.0
     
     var snackbar: TTGSnackbar?
-
+    fileprivate var scrollCheckCount = 0
+    
     fileprivate var screenBounds: CGRect!
     fileprivate var pointNow = CGPoint.zero
     fileprivate var pageOffsetRate: CGFloat = 0
@@ -536,7 +537,6 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
 
         /* MNM: scrollDirection */
         if readerConfig.scrollDirection == .horizontal {
-            print("center added horizontalMode")
             classes += " horizontalMode"
         }
 
@@ -1313,9 +1313,17 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         let pointNowForDirection = pointNow.forDirection(withConfiguration: self.readerConfig, scrollType: scrollType)
         // The movement is either positive or negative. This happens if the page change isn't completed. Toggle to the other scroll direction then.
         let isCurrentlyPositive = (self.pageScrollDirection == .left || self.pageScrollDirection == .up)
+        
+        if (scrollViewContentOffsetForDirection == 0.0){
+            return
+        }
 
         if (scrollViewContentOffsetForDirection < pointNowForDirection) {
-            self.pageScrollDirection = .negative(withConfiguration: self.readerConfig, scrollType: scrollType)
+            scrollCheckCount += 1
+            if(scrollCheckCount > 4){
+                scrollCheckCount = 0
+                self.pageScrollDirection = .negative(withConfiguration: self.readerConfig, scrollType: scrollType)
+            }
         } else if (scrollViewContentOffsetForDirection > pointNowForDirection) {
             self.pageScrollDirection = .positive(withConfiguration: self.readerConfig, scrollType: scrollType)
         } else if (isCurrentlyPositive == true) {
@@ -1330,6 +1338,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
         
         if (scrollView is UICollectionView) {
             scrollView.isUserInteractionEnabled = true
+            scrollCheckCount = 0
         }
 
         // Perform the page after a short delay as the collection view hasn't completed it's transition if this method is called (the index paths aren't right during fast scrolls).
@@ -1351,6 +1360,7 @@ open class FolioReaderCenter: UIViewController, UICollectionViewDelegate, UIColl
                 }
             } else {
                 self?.scrollScrubber?.scrollViewDidEndDecelerating(scrollView)
+                scrollView.isUserInteractionEnabled = true
             }
         })
     }
